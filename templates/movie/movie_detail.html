@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}{{ movie.title }}{% endblock %}
+
+
+{% block content %}
+
+  <div class="container">
+    <div class="row">
+
+      <div class="col-lg-3"></div>
+      <div class="col-lg-2"></div>
+
+      <div class="left-ads-display col-lg-7">
+        <div class="row">
+
+          <div class="desc1-left col-md-5">
+            <img src="{{ movie.poster.url }}" class="img-fluid" alt="" width="800px">
+          </div>
+
+          <div class="desc1-right col-md-6 pl-lg-4">
+            <h3 class="editContent">
+              Title: <em>"{{ movie.title }}"</em>
+            </h3>
+            <h5 class="editContent"></h5>
+
+            <ul>
+              <li style="list-style: none">
+                <span><b>Year:</b> {{ movie.year_of_release }}</span>
+              </li>
+              <li style="list-style: none">
+                <span><b>Country:</b> {{ movie.country }}</span>
+              </li>
+              <li style="list-style: none">
+                <span><b>Tagline:</b> {{ movie.tagline }}</span>
+              </li>
+              <li style="list-style: none">
+                <span><b>Director:</b>
+                  {% for director in movie.directors.all %}
+                    <a href="{{ director.get_absolute_url }}">{{ director.name }}</a>
+                  {% endfor %}
+                </span>
+              </li>
+              <li style="list-style: none">
+                <span><b>Actors:</b><br>
+                  {% for actor in movie.actors.all %}
+                    &#8195;<a href="{{ actor.get_absolute_url }}">{{ actor.name }}</a><br>
+                  {% endfor %}
+                </span>
+              </li>
+              <li style="list-style: none">
+                <span><b>Genre:</b><br>
+                  {% for genre in movie.genres.all %}
+                    &#8195;{{ genre.name }}<br>
+                  {% endfor %}
+                </span>
+              </li>
+              <li style="list-style: none">
+                <span><b>The premiere in the world:</b> {{ movie.world_premiere }}</span>
+              </li>
+              <li style="list-style: none">
+                <span><b>Budget:</b> ${{ movie.budget }}</span>
+              </li>
+              <li style="list-style: none">
+                <span><b>Fees in the USA:</b> ${{ movie.fees_in_the_usa }}</span>
+              </li>
+              <li style="list-style: none">
+                <span><b>Fees in the World:</b> ${{ movie.fees_in_the_world }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+{% endblock %}

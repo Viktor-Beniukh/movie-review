@@ -1,0 +1,33 @@
+html,
+body {
+    margin-top: 20px;
+}
+
+.editContent {
+    font-size: 20px;
+    text-align: justify;
+}
+
+.card {
+    text-align: center;
+    height: 610px;
+}
+
+.card-img-top {
+    height: content-box;
+}
+
+.card-body a {
+    text-decoration: none;
+    color: black;
+}
+
+.card-body a:hover {
+    text-decoration: underline;
+    color: blue;
+}
+
+.list-group-item {
+    font-size: 18px;
+    color: #9B703F;
+}

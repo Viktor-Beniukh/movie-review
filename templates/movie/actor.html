@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}{{ actor.name }}{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+    <div class="row">
+
+
+
+      <div class="col-lg-3"></div>
+      <div class="col-lg-2"></div>
+
+      <div class="left-ads-display col-lg-7">
+
+      <h1><strong>Actor: </strong> <em>{{ actor.name }}</em>
+        <a href="#" class="btn btn-secondary link-to-page" style="float: right">
+          Edit
+        </a>
+      </h1>
+        <br>
+        <hr>
+        <div class="row">
+          <div class="desc1-left col-md-6">
+            <img src="{{ actor.image.url}}" class="img-fluid" alt="" width="800px">
+          </div>
+          <div class="desc1-right col-md-6 pl-lg-4">
+
+            <h5 class="editContent"></h5>
+            <ul>
+              <li style="list-style: none">
+                <span><b>Age:</b> {{ actor.age }}</span>
+              </li>
+
+              <li style="list-style: none">
+                <span><b>Starred in the films:</b><br>
+                  {% for movie in actor.film_actor.all %}
+                    &#8195;&#8195;- {{ movie.title }}<br>
+                  {% endfor %}
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row sub-para-w3layouts mt-5">
+
+          <h3 class="shop-sing editContent" style="outline: none; cursor: inherit;">
+            About {{ actor.name }}</h3>
+
+          <p class="editContent" style="outline: none; cursor: inherit;">
+            {{ actor.description|safe }}
+          </p>
+
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+{% endblock %}

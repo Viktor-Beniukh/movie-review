@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.urls import reverse
 
 
 class Category(models.Model):
@@ -15,6 +16,9 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("movie:category-movies", kwargs={"slug": self.slug})
 
 
 class Genre(models.Model):
@@ -42,6 +46,9 @@ class Director(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse("movie:director-detail", kwargs={"slug": self.name})
+
 
 class Actor(models.Model):
     name = models.CharField(max_length=255)
@@ -54,6 +61,9 @@ class Actor(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("movie:actor-detail", kwargs={"slug": self.name})
 
 
 class Movie(models.Model):
@@ -90,6 +100,12 @@ class Movie(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse("movie:movie-detail", kwargs={"slug": self.slug})
+
+    def get_review(self):
+        return self.film_review.filter(parent__isnull=True)
 
 
 class MovieFrames(models.Model):
