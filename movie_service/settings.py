@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "debug_toolbar",
+    "crispy_forms",
+    "crispy_bootstrap5",
     "ckeditor",
     "ckeditor_uploader",
     "movie",
@@ -82,6 +84,11 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "movie_service.wsgi.application"
+
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 
 # Database
