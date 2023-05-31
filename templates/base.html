@@ -21,9 +21,12 @@
 
   <body>
 
-    {% block navigation %}
-      {% include "includes/navigation.html" %}
-    {% endblock %}
+
+      <div class="main-banner bg {% block navigation %}{% endblock %}" id="home">
+        {% include "includes/navigation.html" %}
+      </div>
+
+
     <br><br><br><br>
 
 

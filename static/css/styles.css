@@ -4,6 +4,14 @@ body {
     height:100%
 }
 
+.navbar-nav .nav-link {
+    color: red;
+}
+
+.bg-blue {
+    background: rgba(166,145,92,0.7);
+}
+
 .editContent {
     font-size: 20px;
     text-align: justify;
@@ -31,4 +39,45 @@ body {
 .list-group-item {
     font-size: 18px;
     color: #9B703F;
+}
+
+.main-banner {
+    background: url(../images/banner_03.jpg)no-repeat center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -ms-background-size: cover;
+    background-size: cover;
+    position: relative;
+    min-height: 50em;
+}
+
+.main-banner.inner {
+    background: url(../images/banner_03.jpg)no-repeat center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -ms-background-size: cover;
+    background-size: cover;
+    position: relative;
+    min-height: 20em;
+}
+
+.bg1 {
+    margin-top: 0;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url(../images/banner_05.jpg);
+}
+
+.banner-info {
+    padding: 16em 0 0 3em;
+    width: 32%;
+}
+
+.banner-info h3 {
+    font-size: 3.5em;
+    letter-spacing: 2px;
+    color: #fff;
+    text-transform: uppercase;
+    text-shadow: 2px 5px 3px rgba(0, 0, 0, 0.06);
 }
