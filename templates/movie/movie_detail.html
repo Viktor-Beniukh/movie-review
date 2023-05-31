@@ -111,8 +111,24 @@
       </div>
     </div>
 
-  <hr>
+    <div class="row sub-para-w3layouts mt-5">
 
+      <h3 class="shop-sing editContent" style="outline: none; cursor: inherit;">
+        About the movie <em>"{{ movie.title }}"</em></h3>&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;
+      <p>
+        {% for image in movie.film_frames.all %}
+          <img src="{{ image.image.url }}" class="img-fluid" alt="{{ image.description }}" width="120">
+        {% endfor %}
+      </p><br>
+      <p class="editContent" style="outline: none; cursor: inherit;">
+        {{ movie.description|safe }}
+      </p>
+
+    </div>
+
+    <hr>
+
+    {% if user.is_authenticated %}
     <div class="row">
       <div class="single-form-left">
         <!-- contact form grid -->
@@ -166,6 +182,7 @@
         <!--  //contact form grid ends here -->
       </div>
     </div>
+    {% endif %}
 
     <br><br>
     <hr>
