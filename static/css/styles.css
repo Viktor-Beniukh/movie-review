@@ -79,11 +79,15 @@ h4.editContent {
 
 .card {
     text-align: center;
-    height: 580px;
+    height: 620px;
 }
 
 .card-img-top {
     height: content-box;
+}
+
+.card-title {
+    height: 40px;
 }
 
 .card-body a {
@@ -104,6 +108,8 @@ h4.editContent {
 /*--//card --*/
 
 
+/*--/review --*/
+
 textarea {
   overflow: auto;
   resize: vertical;
@@ -116,6 +122,8 @@ template {
 [hidden] {
   display: none !important;
 }
+
+/*--//review --*/
 
 
 /*--/banner --*/
