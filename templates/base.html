@@ -31,7 +31,17 @@
     <br><br><br><br>
 
 
-    {% block content %}{% endblock %}
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="side-bar col-lg-3">
+          {% include "includes/sidebar.html" %}
+        </div>
+        <div class="col-lg-1"></div>
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+
 
     {% block pagination %}
       {% include "includes/pagination.html" %}

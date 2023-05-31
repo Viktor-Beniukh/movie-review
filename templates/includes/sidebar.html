@@ -1,0 +1,117 @@
+{% load movie_tag %}
+  <div class="search-bar w3layouts-newsletter">
+    <h3 class="sear-head editContent" >Movie search</h3>
+    <form action="{% url 'movie:movie-search' %}" method="get" class="d-flex editContent" >
+      <label>
+        <input type="search" placeholder="Enter a name..." name="q" class="form-control" required="">
+      </label>&#8194;
+      <button type="submit" class="btn1 btn" >
+        <span class="fa fa-search" aria-hidden="true" ></span>
+      </button>
+    </form>
+  </div>
+  <!--preference -->
+  <form action="{% url 'movie:movie-filter' %}" method="get">
+    <div class="left-side my-4">
+      <h3 class="sear-head editContent" >Genres</h3>
+      <ul class="w3layouts-box-list">
+        {% for genre in view.get_genres %}
+        <li class="editContent" >
+          <label>
+            <input type="checkbox" class="checked" name="genres" value="{{ genre.id }}">
+          </label>
+          <span class="span editContent" > &#8194;{{ genre.name }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  <!-- // preference -->
+  <!-- discounts -->
+
+    <div class="left-side">
+      <h3 class="sear-head editContent" >Years</h3>
+      <ul class="w3layouts-box-list">
+        {% for movie in view.get_years_release %}
+        <li class="editContent" >
+          <label>
+            <input type="checkbox" class="checked" name="year_of_release" value="{{ movie.year_of_release }}">
+          </label>
+          <span class="span editContent" > &#8194;{{ movie.year_of_release }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+
+  <!-- //discounts -->
+  <!-- reviews -->
+  <div class="customer-rev left-side my-4">
+    <h3 class="sear-head editContent" >Rating</h3>
+    <ul class="w3layouts-box-list">
+      <li>
+        <a href="#">
+          <span class="fa fa-star" aria-hidden="true" ></span>
+          <span class="fa fa-star" aria-hidden="true" ></span>
+          <span class="fa fa-star" aria-hidden="true" ></span>
+          <span class="fa fa-star" aria-hidden="true" ></span>
+          <span class="fa fa-star" aria-hidden="true" ></span>
+          <span class="editContent" > &#8194;<small>5.0</small></span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <span class="fa fa-star" aria-hidden="true" ></span>
+          <span class="fa fa-star" aria-hidden="true" ></span>
+          <span class="fa fa-star" aria-hidden="true" ></span>
+          <span class="fa fa-star" aria-hidden="true" ></span>
+          <span class="fa fa-star-o" aria-hidden="true" ></span>
+          <span class="editContent" > &#8194;<small>4.0</small></span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <span class="fa fa-star" aria-hidden="true" ></span>
+          <span class="fa fa-star" aria-hidden="true" ></span>
+          <span class="fa fa-star" aria-hidden="true" ></span>
+          <span class="fa fa-star-o" aria-hidden="true" ></span>
+          <span class="fa fa-star-o" aria-hidden="true" ></span>
+          <span class="editContent" > &#8194;<small>3.0</small></span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <span class="fa fa-star" aria-hidden="true" ></span>
+          <span class="fa fa-star" aria-hidden="true" ></span>
+          <span class="fa fa-star-o" aria-hidden="true"></span>
+          <span class="fa fa-star-o" aria-hidden="true" ></span>
+          <span class="fa fa-star-o" aria-hidden="true" ></span>
+          <span class="editContent" > &#8194;<small>2.0</small></span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <span class="fa fa-star" aria-hidden="true"></span>
+          <span class="fa fa-star-o" aria-hidden="true" ></span>
+          <span class="fa fa-star-o" aria-hidden="true" ></span>
+          <span class="fa fa-star-o" aria-hidden="true" ></span>
+          <span class="fa fa-star-o" aria-hidden="true" ></span>
+          <span class="editContent" > &#8194;<small>1.0</small></span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <span class="fa fa-star-o" aria-hidden="true"></span>
+          <span class="fa fa-star-o" aria-hidden="true" ></span>
+          <span class="fa fa-star-o" aria-hidden="true" ></span>
+          <span class="fa fa-star-o" aria-hidden="true" ></span>
+          <span class="fa fa-star-o" aria-hidden="true" ></span>
+          <span class="editContent" > &#8194;<small>0.0</small></span>
+        </a>
+      </li>
+
+    </ul>
+  </div>
+  <!-- //reviews -->
+
+{% get_last_movies count=3 %}

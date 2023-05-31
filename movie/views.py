@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.views.generic import ListView, DetailView
 
 from movie.models import Genre, Movie, Director, Actor, Category
@@ -30,6 +31,57 @@ class MovieListView(GenreYear, ListView):
 class MovieDetailView(GenreYear, DetailView):
     model = Movie
     slug_field = "slug"
+
+
+class MoviesFilterView(GenreYear, ListView):
+    """Filtering of movies by year of release and genre ids"""
+    paginate_by = 2
+
+    def get_queryset(self):
+        queryset = (
+            Movie.objects.filter(
+                Q(year_of_release__in=self.request.GET.getlist(
+                    "year_of_release"
+                )
+                ) | Q(genres__in=self.request.GET.getlist("genres"))
+            )
+        )
+        return queryset.distinct()
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["year_of_release"] = (
+            "".join(
+                [
+                    f"year_of_release={char}&"
+                    for char in self.request.GET.getlist("year_of_release")
+                ]
+            )
+        )
+        context["genres"] = (
+            "".join(
+                [
+                    f"genres={char}&"
+                    for char in self.request.GET.getlist("genres")
+                ]
+            )
+        )
+        return context
+
+
+class MovieSearchView(GenreYear, ListView):
+    """Search movies by title"""
+    paginate_by = 3
+
+    def get_queryset(self):
+        return Movie.objects.filter(
+            title__icontains=self.request.GET.get("q")
+        )
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["q"] = f"q={self.request.GET.get('q')}&"
+        return context
 
 
 class DirectorView(GenreYear, DetailView):
