@@ -13,7 +13,8 @@ class GenreYear:
     @staticmethod
     def get_years_release():
         return (
-            Movie.objects.values("year_of_release").distinct()
+            Movie.objects.all().all()
+            .values("year_of_release").distinct()
             .order_by("-year_of_release")
         )
 
@@ -35,7 +36,6 @@ class MovieDetailView(GenreYear, DetailView):
 
 class MoviesFilterView(GenreYear, ListView):
     """Filtering of movies by year of release and genre ids"""
-    paginate_by = 2
 
     def get_queryset(self):
         queryset = (
@@ -71,7 +71,6 @@ class MoviesFilterView(GenreYear, ListView):
 
 class MovieSearchView(GenreYear, ListView):
     """Search movies by title"""
-    paginate_by = 3
 
     def get_queryset(self):
         return Movie.objects.filter(

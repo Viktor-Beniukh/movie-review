@@ -1,25 +1,21 @@
 {% extends "base.html" %}
 
+{% block title %}{{ category.name }}{% endblock %}
+
 {% block content %}
 
-  <div class="container">
-    <div class="row">
+  <div class="col-lg-7">
 
-      <div class="col-lg-3"></div>
+    <h1 style="text-align: center">
+      <strong>Category: </strong>&#8195; <em>{{ category.name }}</em>
+    </h1>
+    <br>
+    <hr>
 
-      <div class="col-lg-9">
+    {% if movies %}
 
-        <h1 style="text-align: center">
-          <strong>Category: </strong>&#8195; <em>{{ category.name }}</em>
-        </h1>
-          <br>
-          <hr>
-
-      {% if movies %}
-
-        <div class="row">
-          {% for movie in movies %}
-
+      <div class="row">
+        {% for movie in movies %}
           <div class="col-md-4">
 
             <div class="card" style="width: 18rem;">
@@ -44,8 +40,5 @@
       {% endif %}
 
       </div>
-
-    </div>
-  </div>
 
 {% endblock %}

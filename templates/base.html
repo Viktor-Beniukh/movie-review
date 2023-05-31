@@ -22,26 +22,25 @@
 
   <body>
 
-
-      <div class="main-banner bg {% block navigation %}{% endblock %}" id="home">
-        {% include "includes/navigation.html" %}
-      </div>
-
+    <div class="main-banner bg {% block navigation %}{% endblock %}" id="home">
+      {% include "includes/navigation.html" %}
+    </div>
 
     <br><br><br><br>
 
-
-
     <div class="container-fluid">
       <div class="row">
+
         <div class="side-bar col-lg-3">
           {% include "includes/sidebar.html" %}
         </div>
+
         <div class="col-lg-1"></div>
+
         {% block content %}{% endblock %}
+
       </div>
     </div>
-
 
     {% block pagination %}
       {% include "includes/pagination.html" %}
@@ -50,11 +49,6 @@
     <div class="container-fluid">
       {% include "includes/footer.html" %}
     </div>
-
-
-
-
-
 
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"
