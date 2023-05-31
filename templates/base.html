@@ -16,6 +16,7 @@
           crossorigin="anonymous">
 
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
 
   </head>
 
@@ -31,6 +32,11 @@
 
 
     {% block content %}{% endblock %}
+
+    <div class="container-fluid">
+      {% include "includes/footer.html" %}
+    </div>
+
 
 
 
