@@ -79,7 +79,7 @@ h4.editContent {
 
 .card {
     text-align: center;
-    height: 610px;
+    height: 580px;
 }
 
 .card-img-top {
@@ -93,7 +93,7 @@ h4.editContent {
 
 .card-body a:hover {
     text-decoration: underline;
-    color: blue;
+    color: #935c25;
 }
 
 .list-group-item {
@@ -102,6 +102,20 @@ h4.editContent {
 }
 
 /*--//card --*/
+
+
+textarea {
+  overflow: auto;
+  resize: vertical;
+}
+
+template {
+  display: none;
+}
+
+[hidden] {
+  display: none !important;
+}
 
 
 /*--/banner --*/

@@ -6,6 +6,8 @@
 
 {% block content %}
 
+  <div class="col-lg-1"></div>
+
   <div class="left-ads-display col-lg-7">
     <div class="row">
       <h3>
@@ -64,9 +66,150 @@
             <span><b>Fees in the World:</b> ${{ movie.fees_in_the_world }}</span>
           </li>
         </ul>
+
+        <br>
+
+        <div class="rating">
+          <span>&#8195;&#8195;<b>Rating:</b> </span>
+        </div>
+
+        <br>
+
+        <div class="share-desc">
+          <div class="share">
+            <h4 class="editContent" style="outline: none; cursor: inherit;"> &#8195;&#8195;<strong>Share:</strong></h4>
+            <ul class="w3layouts_social_list list-unstyled">&#8195;
+              <li>
+                <a href="#" class="w3pvt_facebook editContent" style="outline: none; cursor: inherit;">
+                  <span class="fa fa-facebook-f" style="outline: none; cursor: inherit;"></span>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="w3pvt_twitter editContent" style="outline: none; cursor: inherit;">
+                  <span class="fa fa-twitter" style="outline: none; cursor: inherit;"></span>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="w3pvt_dribble editContent" style="outline: none; cursor: inherit;">
+                  <span class="fa fa-dribbble" style="outline: none; cursor: inherit;"></span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+
       </div>
     </div>
+
+  <hr>
+
+    <div class="row">
+      <div class="single-form-left">
+        <!-- contact form grid -->
+        <div class="contact-single">
+          <h2 class="editContent" style="outline: none; cursor: inherit;">
+            <span class="sub-tittle editContent" style="outline: none; cursor: inherit;">
+              <small>{{ movie.film_review.count }}</small>
+            </span>
+            Leave a review
+          </h2>
+
+          <form action="{% url 'movie:review-create' movie.id %}" method="post" class="mt-4" id="formReview">
+            {% csrf_token %}
+            <input type="hidden" name="parent" id="contactparent" value="">
+            <div class="form-group editContent">
+
+              <label for="contactcomment" class="editContent">
+                Your comment*
+              </label>
+              <textarea class="form-control border" rows="5"
+                        id="contactcomment" required="" name="text">
+              </textarea>
+            </div>
+            <div class="d-sm-flex">
+              <div class="col-sm-6 form-group p-0 editContent" style="outline: none; cursor: inherit;">
+                <label for="contactusername" class="editContent">
+                  Name*
+                </label>
+                <input type="text" class="form-control border"
+                       id="contactusername" required=""
+                       name="first_name" value="{{ request.user.first_name }}"
+                       readonly
+                >
+              </div>&#8194;
+              <div class="col-sm-6 form-group ml-sm-3 editContent" style="outline: none; cursor: inherit;">
+                <label for="contactemail" class="editContent">
+                  Email*
+                </label>
+                <input type="email" class="form-control border"
+                       id="contactemail" required=""
+                       name="email" value="{{ request.user.email }}"
+                       readonly
+                >
+              </div>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-warning" style="outline: none; cursor: inherit; font-size: 20px">Submit</button>
+          </form>
+
+        </div>
+        <!--  //contact form grid ends here -->
+      </div>
+    </div>
+
+    <br><br>
+    <hr>
+    <div>
+
+      <h3 class="editContent" style="outline: none; cursor: inherit;">
+        <span class="sub-tittle editContent" style="outline: none; cursor: inherit;"></span>
+        Comments
+      </h3>
+      <hr>
+      {% for review in movie.get_review %}
+        <div class="media py-5">
+
+          <img src="{{ review.user.profile.image.url }}" class="mr-3 img-fluid" alt="image" width="80">&#8195;&#8195;&#8195;
+          <div class="media-body mt-4">
+            <h5 class="mt-0 editContent">{{ review.user.first_name }}</h5>
+            <p class="mt-2 editContent" style="outline: none; cursor: inherit;">{{ review.text }}</p>
+
+          {% if user.is_authenticated %}
+            {% if review.user != request.user %}
+            <a href="#formReview"
+               onclick="addReview('{{ review.user.first_name }}','{{ review.id }}')">
+              Answer
+            </a>
+            {% endif %}
+          {% endif %}
+
+            {% for rew in review.review_set.all %}
+              <div class="media mt-5 editContent">
+                <a class="pr-3" href="#">
+                  <img src="{{ rew.user.profile.image.url }}" class="img-fluid" alt="image" width="80">
+                </a>
+                <div class="media-body">
+                  <h5 class="mt-0 editContent">{{ rew.user.first_name }}</h5>
+                  <p class="mt-2 editContent">{{ rew.text }}</p>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+
+        </div><hr>
+      {% endfor %}
+    </div>
+
   </div>
 
+  <script>
+    function addReview(first_name, id) {
+      document.getElementById("contactparent").value = id;
+      document.getElementById("contactcomment").innerText = `${first_name}, `
+    }
+  </script>
+
   <br><br>
+
 {% endblock %}

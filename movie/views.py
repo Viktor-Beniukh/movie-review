@@ -1,6 +1,9 @@
 from django.db.models import Q
+from django.shortcuts import redirect
+from django.views import View
 from django.views.generic import ListView, DetailView
 
+from movie.forms import ReviewForm
 from movie.models import Genre, Movie, Director, Actor, Category
 
 
@@ -36,6 +39,7 @@ class MovieDetailView(GenreYear, DetailView):
 
 class MoviesFilterView(GenreYear, ListView):
     """Filtering of movies by year of release and genre ids"""
+    paginate_by = 1
 
     def get_queryset(self):
         queryset = (
@@ -71,6 +75,7 @@ class MoviesFilterView(GenreYear, ListView):
 
 class MovieSearchView(GenreYear, ListView):
     """Search movies by title"""
+    paginate_by = 3
 
     def get_queryset(self):
         return Movie.objects.filter(
@@ -104,3 +109,23 @@ class CategoryDetailView(GenreYear, DetailView):
         context = super().get_context_data()
         context["movies"] = Movie.objects.filter(category=self.object.id)
         return context
+
+
+class ReviewCreateView(View):
+
+    @staticmethod
+    def post(request, pk):
+        data = request.POST.copy()
+        data.update({"user": request.user.id})
+        form = ReviewForm(data)
+        movie = Movie.objects.get(id=pk)
+
+        if form.is_valid():
+            form = form.save(commit=False)
+            if request.POST.get("parent", None):
+                form.parent_id = int(request.POST.get("parent"))
+            form.user = request.user
+            form.movie = movie
+            form.save()
+
+        return redirect(movie.get_absolute_url())
