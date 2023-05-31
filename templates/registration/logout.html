@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Logout{% endblock %}
+
+{% block content %}
+
+
+      <div class="col-md-1"></div>
+
+      <div class="col-md-7">
+
+        <h1>Logout...</h1><br><br>
+
+        <h3>You have left your account</h3>
+        <div class="border-top pt-3">
+            <span class="text-muted">
+                <a href="{% url 'user:login' %}">Sign in</a>
+            </span>
+        </div>
+
+      </div>
+
+
+{% endblock %}

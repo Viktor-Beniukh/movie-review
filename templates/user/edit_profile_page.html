@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block content %}
+
+
+      <div class="col-md-1"></div>
+
+      <div class="col-md-7">
+      {% if user.is_authenticated %}
+
+        {% if user.id == profile.user.id %}
+
+        <h1>Edit Profile...</h1>
+        <br>
+        <img src="{{ user.profile.image.url }}" alt="" class="rounded-circle">
+        <br><br>
+
+        <form action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <button  class="btn btn-warning">Update Profile</button>
+        </form>
+
+        {% else %}
+          You're not the correct User To Edit This Page...
+
+        {% endif %}
+
+      {% else %}
+        <h5>You're not allowed here!</h5>&#8194;
+          <p><em>(and you know it...)</em></p>
+
+      {% endif %}
+
+      </div>
+
+{% endblock %}

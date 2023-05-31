@@ -23,7 +23,9 @@ body {
     text-decoration: underline;
 }
 
-
+.nav-item {
+    list-style: none;
+}
 
 .bg-blue {
     background: rgba(166,145,92,0.7);
@@ -106,6 +108,15 @@ h4.editContent {
 }
 
 /*--//card --*/
+
+
+/*--/rating --*/
+
+.w3layouts-box-list {
+    list-style: none;
+}
+
+/*--//rating --*/
 
 
 /*--/review --*/

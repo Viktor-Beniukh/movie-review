@@ -1,3 +1,4 @@
+{% load static %}
 {% load movie_tag %}
 
 <nav class="navbar navbar-expand-lg navbar-light bg-blue fixed-top">&#8195;&#8195;
@@ -11,9 +12,7 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/" style="color: #902b2b; font-size: 24px"><strong>Home</strong></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
+
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Categories
@@ -23,15 +22,71 @@
               {% for category in categories %}
             <li><a class="dropdown-item" href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
               {% endfor %}
+            {% if user.is_staff %}
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Add category</a></li>
+            {% endif %}
           </ul>
         </li>
+
+        {% if user.is_staff %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Movies
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Add Genre</a></li>
+            <li><a class="dropdown-item" href="#">Add Director</a></li>
+            <li><a class="dropdown-item" href="#">Add Actor</a></li>
+            <li><a class="dropdown-item" href="#">Add Movie</a></li>
+            <li><a class="dropdown-item" href="#">Add Movie Frame</a></li>
+          </ul>
+        </li>
+        {% endif %}
+
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+
+      {% if user.is_authenticated %}
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Hello, {{ user.first_name }}
+          </a>
+
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{% url 'user:edit-user-data' %}">Edit Settings</a></li>
+            {% if user.profile.id %}
+            <li><a class="dropdown-item" href="{% url 'user:edit-profile' user.profile.id %}">Edit Profile</a></li>
+            {% else %}
+            <li><a class="dropdown-item" href="{% url 'user:profile-create' %}">Create Profile</a></li>
+            {% endif %}
+            {% if user.is_staff %}
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{% url 'admin:index' %}">Admin Panel</a></li>
+            {% endif %}
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{% url 'user:logout' %}">Logout</a></li>
+          </ul>
+        </li>
+
+        <span>
+          <img src="{% if user.profile.image %}{{ user.profile.image.url }}
+               {% else %}{% static 'images/user.png' %}{% endif %}" alt=""
+               width="36" style="border-radius: 50%">
+        </span>
+
+      {% else %}
+        &#8194;
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'user:register' %}">Sign up</a>
+        </li>
+        &#8194;&#8194;
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'user:login' %}">Sign in</a>
+        </li>
+      </ul>&#8195;&#8195;
+    {% endif %}
+
     </div>
   </div>
 </nav>
