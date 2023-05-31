@@ -7,9 +7,23 @@ body {
 
 /*--/navbar --*/
 
-.navbar-nav .nav-link {
-    color: red;
+.navbar-brand {
+    font-size: 32px;
+    color: #660000;
 }
+
+.nav-link {
+    color: #FF4500;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.nav-link:hover {
+    color: #660000;
+    text-decoration: underline;
+}
+
+
 
 .bg-blue {
     background: rgba(166,145,92,0.7);
