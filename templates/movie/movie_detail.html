@@ -13,16 +13,17 @@
 
       <div class="left-ads-display col-lg-7">
         <div class="row">
+          <h3>
+            Title: <em>"{{ movie.title }}"</em>
+          </h3>
+          <hr>
+          <br>
 
           <div class="desc1-left col-md-5">
             <img src="{{ movie.poster.url }}" class="img-fluid" alt="" width="800px">
           </div>
 
           <div class="desc1-right col-md-6 pl-lg-4">
-            <h3 class="editContent">
-              Title: <em>"{{ movie.title }}"</em>
-            </h3>
-            <h5 class="editContent"></h5>
 
             <ul>
               <li style="list-style: none">
@@ -74,4 +75,5 @@
 
     </div>
   </div>
+  <br><br>
 {% endblock %}
