@@ -24,6 +24,7 @@ class MovieListView(GenreYear, ListView):
         .prefetch_related("directors", "actors", "genres")
     )
     template_name = "movie/movie_list.html"
+    paginate_by = 3
 
 
 class MovieDetailView(GenreYear, DetailView):
