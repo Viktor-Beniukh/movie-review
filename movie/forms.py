@@ -33,4 +33,3 @@ class MovieForm(forms.ModelForm):
             "fees_in_the_world",
             "category",
         )
-
