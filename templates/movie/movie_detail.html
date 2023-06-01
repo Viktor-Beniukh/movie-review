@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+
 {% load movie_tag %}
 
 {% block title %}{{ movie.title }}{% endblock %}
@@ -78,6 +79,7 @@
                 <span class="fa fa-star" aria-hidden="true" ></span>
                 <span class="fa fa-star" aria-hidden="true" ></span>
                 <span class="fa fa-star-o" aria-hidden="true" ></span>
+                <span class="editContent" > &#8194;<small>{{ average_rating }}.0</small></span>
             </li>
           </ul>
         </div>
@@ -184,6 +186,17 @@
       </div>
     </div>
     {% endif %}
+
+    <br>
+    <hr>
+    <div class="rating">
+
+      <form method="post" action="{% url 'movie:add-rating' movie.slug %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-warning">Submit Rating</button>
+      </form>
+    </div>
 
     <br><br>
     <hr>

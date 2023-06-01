@@ -1,19 +1,21 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.db.models import Q
-from django.shortcuts import redirect
+from django.db.models import Q, Avg
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import (
+    ListView, DetailView, CreateView, UpdateView, FormView,
+)
 
-from movie.forms import ReviewForm, MovieForm
+from movie.forms import ReviewForm, MovieForm, RatingForm
 from movie.models import (
     Genre,
     Movie,
     Director,
     Actor,
     Category,
-    MovieFrames,
+    MovieFrames, Rating,
 )
 
 
@@ -42,9 +44,45 @@ class MovieListView(GenreYear, ListView):
     paginate_by = 6
 
 
-class MovieDetailView(GenreYear, DetailView):
+class MovieDetailView(GenreYear, DetailView, FormView):
     model = Movie
     slug_field = "slug"
+    form_class = RatingForm
+    template_name = "movie/movie_detail.html"
+
+    def get_object(self, queryset=None):
+        queryset = self.get_queryset()
+        slug = self.kwargs.get(self.slug_url_kwarg)
+        return get_object_or_404(queryset, slug=slug)
+
+    def get_success_url(self):
+        movie = self.get_object()
+        return reverse_lazy("movie:movie-detail", kwargs={"slug": movie.slug})
+
+    def form_valid(self, form):
+        movie = self.get_object()
+        rating_value = form.cleaned_data["rating"]
+        user = self.request.user
+
+        try:
+            rating = Rating.objects.get(user=user, movie=movie)
+            rating.rating = rating_value
+            rating.save()
+        except Rating.DoesNotExist:
+            Rating.objects.create(user=user, movie=movie, rating=rating_value)
+
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        average_rating = (
+            Rating.objects.filter(movie=self.object)
+            .aggregate(avg_rating=Avg("rating"))["avg_rating"]
+        )
+        context["average_rating"] = (
+            int(average_rating) if average_rating is not None else 0
+        )
+        return context
 
 
 class MoviesFilterView(GenreYear, ListView):

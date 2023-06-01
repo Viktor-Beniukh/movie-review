@@ -33,6 +33,7 @@ urlpatterns = [
     path("movie-filter/", MoviesFilterView.as_view(), name="movie-filter"),
     path("movie-search/", MovieSearchView.as_view(), name="movie-search"),
     path("<slug:slug>/", MovieDetailView.as_view(), name="movie-detail"),
+    path("<slug:slug>/rating/", MovieDetailView.as_view(), name="add-rating"),
     path("review/<int:pk>/", ReviewCreateView.as_view(), name="review-create"),
     path(
         "director/create/",

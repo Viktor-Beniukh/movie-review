@@ -33,3 +33,12 @@ class MovieForm(forms.ModelForm):
             "fees_in_the_world",
             "category",
         )
+
+
+class RatingForm(forms.Form):
+    rating = forms.IntegerField(
+        label="Rating",
+        min_value=1,
+        max_value=5,
+        widget=forms.NumberInput(attrs={"class": "rating-input"}),
+    )
