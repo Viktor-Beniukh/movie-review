@@ -121,11 +121,17 @@ class CategoryDetailView(GenreYear, DetailView):
         return context
 
 
-class MovieCreateView(LoginRequiredMixin, GenreYear, CreateView):
+class MovieCreateView(
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    GenreYear,
+    CreateView
+):
     model = Movie
     form_class = MovieForm
     template_name = "movie/add_movie.html"
     success_url = reverse_lazy("movie:movie-list")
+    success_message = "The movie has been successfully created."
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -139,11 +145,17 @@ class MovieCreateView(LoginRequiredMixin, GenreYear, CreateView):
         return self.render_to_response(self.get_context_data(form=form))
 
 
-class MovieFramesCreateView(LoginRequiredMixin, GenreYear, CreateView):
+class MovieFramesCreateView(
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    GenreYear,
+    CreateView
+):
     model = MovieFrames
     template_name = "movie/add_movie_frame.html"
     fields = "__all__"
     success_url = reverse_lazy("movie:movie-list")
+    success_message = "The frame to the movie has been successfully created."
 
 
 class ReviewCreateView(LoginRequiredMixin, View):
