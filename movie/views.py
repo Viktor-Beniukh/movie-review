@@ -1,12 +1,15 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q, Avg
+from django.db.models.functions import Cast, Round
+from django.db import models
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import (
     ListView, DetailView, CreateView, UpdateView, FormView,
 )
+
 
 from movie.forms import ReviewForm, MovieForm, RatingForm
 from movie.models import (
@@ -36,9 +39,14 @@ class GenreYear:
 
 class MovieListView(GenreYear, ListView):
     model = Movie
-    movies = (
+    queryset = (
         Movie.objects.select_related("category")
         .prefetch_related("directors", "actors", "genres")
+        .annotate(
+            avg_rating=Cast(
+                Round(Avg("film_rating__rating")), models.IntegerField()
+            )
+        )
     )
     template_name = "movie/movie_list.html"
     paginate_by = 6

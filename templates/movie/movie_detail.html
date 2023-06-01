@@ -73,14 +73,55 @@
         <div class="rating">
           <span>&#8195;&#8195;<b>Rating:</b> </span>
           <ul class="w3layouts-box-list">
-            <li>
+            {% if not average_rating %}
+              <span class="fa fa-star-o" aria-hidden="true" ></span>
+              <span class="fa fa-star-o" aria-hidden="true" ></span>
+              <span class="fa fa-star-o" aria-hidden="true" ></span>
+              <span class="fa fa-star-o" aria-hidden="true" ></span>
+              <span class="fa fa-star-o" aria-hidden="true" ></span>
+            {% else %}
+              {% if average_rating == 1 %}
+                <span class="fa fa-star" aria-hidden="true" ></span>
+                <span class="fa fa-star-o" aria-hidden="true" ></span>
+                <span class="fa fa-star-o" aria-hidden="true" ></span>
+                <span class="fa fa-star-o" aria-hidden="true" ></span>
+                <span class="fa fa-star-o" aria-hidden="true" ></span>
+              {% endif %}
+
+              {% if average_rating == 2 %}
+                <span class="fa fa-star" aria-hidden="true" ></span>
+                <span class="fa fa-star" aria-hidden="true" ></span>
+                <span class="fa fa-star-o" aria-hidden="true" ></span>
+                <span class="fa fa-star-o" aria-hidden="true" ></span>
+                <span class="fa fa-star-o" aria-hidden="true" ></span>
+              {% endif %}
+
+              {% if average_rating == 3 %}
+                <span class="fa fa-star" aria-hidden="true" ></span>
+                <span class="fa fa-star" aria-hidden="true" ></span>
+                <span class="fa fa-star" aria-hidden="true" ></span>
+                <span class="fa fa-star-o" aria-hidden="true" ></span>
+                <span class="fa fa-star-o" aria-hidden="true" ></span>
+              {% endif %}
+
+              {% if average_rating == 4 %}
                 <span class="fa fa-star" aria-hidden="true" ></span>
                 <span class="fa fa-star" aria-hidden="true" ></span>
                 <span class="fa fa-star" aria-hidden="true" ></span>
                 <span class="fa fa-star" aria-hidden="true" ></span>
                 <span class="fa fa-star-o" aria-hidden="true" ></span>
-                <span class="editContent" > &#8194;<small>{{ average_rating }}.0</small></span>
-            </li>
+              {% endif %}
+
+              {% if average_rating == 5 %}
+                <span class="fa fa-star" aria-hidden="true" ></span>
+                <span class="fa fa-star" aria-hidden="true" ></span>
+                <span class="fa fa-star" aria-hidden="true" ></span>
+                <span class="fa fa-star" aria-hidden="true" ></span>
+                <span class="fa fa-star" aria-hidden="true" ></span>
+              {% endif %}
+            {% endif %}
+            <span class="editContent" > &#8194;<small>{{ average_rating }}.0</small></span>
+
           </ul>
         </div>
 
@@ -185,18 +226,18 @@
         <!--  //contact form grid ends here -->
       </div>
     </div>
-    {% endif %}
+
 
     <br>
     <hr>
     <div class="rating">
-
       <form method="post" action="{% url 'movie:add-rating' movie.slug %}">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="btn btn-warning">Submit Rating</button>
       </form>
     </div>
+  {% endif %}
 
     <br><br>
     <hr>
