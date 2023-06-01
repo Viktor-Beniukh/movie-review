@@ -134,6 +134,10 @@ template {
   display: none !important;
 }
 
+.pr-3 {
+    text-decoration: none;
+}
+
 /*--//review --*/
 
 
