@@ -7,6 +7,10 @@ from user.views import (
     UserProfileCreateView,
     ProfileEditView,
     password_success_view,
+    ResetPasswordView,
+    ResetPasswordDoneView,
+    ResetPasswordConfirmView,
+    ResetPasswordCompleteView,
 )
 
 
@@ -52,5 +56,25 @@ urlpatterns = [
         "password-success/",
         password_success_view,
         name="password-success"
+    ),
+    path(
+        "reset_password/",
+        ResetPasswordView.as_view(),
+        name="reset_password"
+    ),
+    path(
+        "reset_password_sent/",
+        ResetPasswordDoneView.as_view(),
+        name="password_reset_done"
+    ),
+    path(
+        "reset/<uidb64>/<token>/",
+        ResetPasswordConfirmView.as_view(),
+        name="password_reset_confirm"
+    ),
+    path(
+        "reset_password_complete/",
+        ResetPasswordCompleteView.as_view(),
+        name="password_reset_complete"
     ),
 ]
