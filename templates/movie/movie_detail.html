@@ -114,7 +114,8 @@
     <div class="row sub-para-w3layouts mt-5">
 
       <h3 class="shop-sing editContent" style="outline: none; cursor: inherit;">
-        About the movie <em>"{{ movie.title }}"</em></h3>&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;
+        About the movie <em>"{{ movie.title }}"</em>
+      </h3>&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;
       <p>
         {% for image in movie.film_frames.all %}
           <img src="{{ image.image.url }}" class="img-fluid" alt="{{ image.description }}" width="120">
