@@ -107,17 +107,6 @@ class Movie(models.Model):
     def get_review(self):
         return self.film_review.filter(parent__isnull=True)
 
-    # def get_average_rating(self):
-    #     rating_total = 0
-    #
-    #     for rating_film in self.film_rating.all():
-    #         rating_total += rating_film.rating
-    #
-    #     if rating_total > 0:
-    #         return rating_total / self.film_rating.count()
-    #
-    #     return 0
-
 
 class MovieFrames(models.Model):
     title = models.CharField(max_length=255)
