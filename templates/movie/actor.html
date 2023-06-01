@@ -9,7 +9,7 @@
   <div class="left-ads-display col-lg-7">
 
     <h1><strong>Actor: </strong> <em>{{ actor.name }}</em>
-      <a href="#" class="btn btn-secondary link-to-page" style="float: right">
+      <a href="{% url 'movie:actor-update' actor.name %}" class="btn btn-warning link-to-page" style="float: right">
         Edit
       </a>
     </h1>

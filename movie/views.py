@@ -1,10 +1,20 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q
 from django.shortcuts import redirect
+from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
-from movie.forms import ReviewForm
-from movie.models import Genre, Movie, Director, Actor, Category
+from movie.forms import ReviewForm, MovieForm
+from movie.models import (
+    Genre,
+    Movie,
+    Director,
+    Actor,
+    Category,
+    MovieFrames,
+)
 
 
 class GenreYear:
@@ -29,7 +39,7 @@ class MovieListView(GenreYear, ListView):
         .prefetch_related("directors", "actors", "genres")
     )
     template_name = "movie/movie_list.html"
-    paginate_by = 3
+    paginate_by = 6
 
 
 class MovieDetailView(GenreYear, DetailView):
@@ -111,7 +121,32 @@ class CategoryDetailView(GenreYear, DetailView):
         return context
 
 
-class ReviewCreateView(View):
+class MovieCreateView(LoginRequiredMixin, GenreYear, CreateView):
+    model = Movie
+    form_class = MovieForm
+    template_name = "movie/add_movie.html"
+    success_url = reverse_lazy("movie:movie-list")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.object = None
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        return self.render_to_response(self.get_context_data(form=form))
+
+
+class MovieFramesCreateView(LoginRequiredMixin, GenreYear, CreateView):
+    model = MovieFrames
+    template_name = "movie/add_movie_frame.html"
+    fields = "__all__"
+    success_url = reverse_lazy("movie:movie-list")
+
+
+class ReviewCreateView(LoginRequiredMixin, View):
 
     @staticmethod
     def post(request, pk):
@@ -129,3 +164,82 @@ class ReviewCreateView(View):
             form.save()
 
         return redirect(movie.get_absolute_url())
+
+
+class AddCategoryView(
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    GenreYear,
+    CreateView
+):
+    model = Category
+    template_name = "movie/add_category.html"
+    fields = ("name", "slug")
+    success_message = "The category has been successfully created."
+
+
+class ActorCreateView(
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    GenreYear,
+    CreateView
+):
+    model = Actor
+    template_name = "movie/add_or_edit_actor.html"
+    fields = "__all__"
+    success_url = reverse_lazy("movie:movie-list")
+    success_message = "The actor has been successfully created."
+
+
+class ActorUpdateView(
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    GenreYear,
+    UpdateView
+):
+    model = Actor
+    template_name = "movie/add_or_edit_actor.html"
+    slug_field = "name"
+    fields = "__all__"
+    success_url = reverse_lazy("movie:movie-list")
+    success_message = "The actor has been successfully updated."
+
+
+class DirectorCreateView(
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    GenreYear,
+    CreateView
+):
+    model = Director
+    template_name = "movie/add_or_edit_director.html"
+    fields = "__all__"
+    success_url = reverse_lazy("movie:movie-list")
+    success_message = "The director has been successfully created."
+
+
+class DirectorUpdateView(
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    GenreYear,
+    UpdateView
+):
+    model = Director
+    template_name = "movie/add_or_edit_director.html"
+    slug_field = "name"
+    fields = "__all__"
+    success_url = reverse_lazy("movie:movie-list")
+    success_message = "The director has been successfully updated."
+
+
+class GenreCreateView(
+    LoginRequiredMixin,
+    SuccessMessageMixin,
+    GenreYear,
+    CreateView
+):
+    model = Genre
+    template_name = "movie/add_genre.html"
+    fields = "__all__"
+    success_url = reverse_lazy("movie:movie-list")
+    success_message = "The genre has been successfully created."

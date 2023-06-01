@@ -24,7 +24,7 @@
               {% endfor %}
             {% if user.is_staff %}
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Add category</a></li>
+            <li><a class="dropdown-item" href="{% url 'movie:category-create' %}">Add category</a></li>
             {% endif %}
           </ul>
         </li>
@@ -35,11 +35,11 @@
             Movies
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Add Genre</a></li>
-            <li><a class="dropdown-item" href="#">Add Director</a></li>
-            <li><a class="dropdown-item" href="#">Add Actor</a></li>
-            <li><a class="dropdown-item" href="#">Add Movie</a></li>
-            <li><a class="dropdown-item" href="#">Add Movie Frame</a></li>
+            <li><a class="dropdown-item" href="{% url 'movie:genre-create' %}">Add Genre</a></li>
+            <li><a class="dropdown-item" href="{% url 'movie:director-create' %}">Add Director</a></li>
+            <li><a class="dropdown-item" href="{% url 'movie:actor-create' %}">Add Actor</a></li>
+            <li><a class="dropdown-item" href="{% url 'movie:movie-create' %}">Add Movie</a></li>
+            <li><a class="dropdown-item" href="{% url 'movie:movie-frame-create' %}">Add Movie Frame</a></li>
           </ul>
         </li>
         {% endif %}

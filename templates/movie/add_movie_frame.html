@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block title %}Add New Movie Frames{% endblock %}
+
+{% block content %}
+
+  <div class="col-md-1"></div>
+
+  <div class="col-md-7">
+    {% if user.is_staff %}
+
+      <h1>Add Movie Frame...</h1>
+      <br>
+
+      <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button  class="btn btn-warning">Add Movie Frame</button>
+      </form>
+
+    {% else %}
+      <h5>You're not allowed here!&#8194;<small><em>(And you know it...)</em></small></h5>
+
+    {% endif %}
+
+      </div>
+
+{% endblock %}
