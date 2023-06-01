@@ -125,31 +125,19 @@ class MovieFrames(models.Model):
         return self.title
 
 
-class RatingStar(models.Model):
-    value = models.IntegerField()
-
-    class Meta:
-        ordering = ("-value",)
-
-    def __str__(self):
-        return str(self.value)
-
-
 class Rating(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="user_rating"
     )
-    star = models.ForeignKey(
-        RatingStar, on_delete=models.CASCADE, related_name="star_rating"
-    )
+    rating = models.IntegerField(default=1)
     movie = models.ForeignKey(
         Movie, on_delete=models.CASCADE, related_name="film_rating"
     )
 
     def __str__(self):
-        return f"{self.star} - {self.movie}"
+        return f"{self.rating} - {self.movie}"
 
 
 class Review(models.Model):

@@ -11,7 +11,6 @@ from movie.models import (
     Genre,
     Movie,
     MovieFrames,
-    RatingStar,
     Rating,
     Review,
 )
@@ -151,10 +150,8 @@ class MovieFramesAdmin(admin.ModelAdmin):
 
 @admin.register(Rating)
 class RatingAdmin(admin.ModelAdmin):
-    list_display = ("movie", "star")
+    list_display = ("movie", "rating")
 
-
-admin.site.register(RatingStar)
 
 admin.site.site_title = "Django Movies"
 admin.site.site_header = "Django Movies"
