@@ -18,7 +18,8 @@ from movie.models import (
     Director,
     Actor,
     Category,
-    MovieFrames, Rating,
+    MovieFrames,
+    Rating,
 )
 
 
