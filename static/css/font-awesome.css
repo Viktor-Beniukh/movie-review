@@ -628,6 +628,9 @@
 .fa-github:before {
   content: "\f09b";
 }
+.fa-telegram:before {
+  content: "\f2c6";
+}
 .fa-unlock:before {
   content: "\f09c";
 }
