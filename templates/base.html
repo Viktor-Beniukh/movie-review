@@ -53,7 +53,9 @@
           {% include "includes/sidebar.html" %}
         </div>
 
-        {% block content %}{% endblock %}
+        {% block content %}
+          {% block rating %}{% endblock %}
+        {% endblock %}
 
       </div>
     </div>

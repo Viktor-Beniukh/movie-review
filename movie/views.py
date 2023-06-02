@@ -104,7 +104,7 @@ class MovieDetailView(GenreYear, DetailView, FormMixin):
 
 class MoviesFilterView(GenreYear, ListView):
     """Filtering of movies by year of release and genre ids"""
-    paginate_by = 1
+    paginate_by = 2
 
     def get_queryset(self):
         queryset = (
@@ -114,7 +114,9 @@ class MoviesFilterView(GenreYear, ListView):
                 )
                 ) | Q(genres__in=self.request.GET.getlist("genres"))
             )
+            .annotate(avg_rating=Avg("film_rating__rating"))
         )
+
         return queryset.distinct()
 
     def get_context_data(self, *args, **kwargs):
@@ -135,6 +137,7 @@ class MoviesFilterView(GenreYear, ListView):
                 ]
             )
         )
+
         return context
 
 
