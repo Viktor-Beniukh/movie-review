@@ -7,9 +7,9 @@ from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import (
-    ListView, DetailView, CreateView, UpdateView, FormView,
+    ListView, DetailView, CreateView, UpdateView
 )
-
+from django.views.generic.edit import FormMixin
 
 from movie.forms import ReviewForm, MovieForm, RatingForm
 from movie.models import (
@@ -53,7 +53,7 @@ class MovieListView(GenreYear, ListView):
     paginate_by = 6
 
 
-class MovieDetailView(GenreYear, DetailView, FormView):
+class MovieDetailView(GenreYear, DetailView, FormMixin):
     model = Movie
     slug_field = "slug"
     form_class = RatingForm
@@ -81,6 +81,14 @@ class MovieDetailView(GenreYear, DetailView, FormView):
             Rating.objects.create(user=user, movie=movie, rating=rating_value)
 
         return super().form_valid(form)
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

@@ -25,6 +25,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("movie.urls", namespace="movie")),
     path("user/", include("user.urls", namespace="user")),
+    path("subscribe/", include("subscribe.urls", namespace="subscribe")),
     path("ckeditor/", include("ckeditor_uploader.urls")),
     path("__debug__/", include("debug_toolbar.urls")),
     path(
