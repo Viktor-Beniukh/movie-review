@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "ckeditor_uploader",
     "movie",
     "user",
+    "subscribe",
 ]
 
 MIDDLEWARE = [
