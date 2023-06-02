@@ -104,7 +104,7 @@ class MovieDetailView(GenreYear, DetailView, FormMixin):
 
 class MoviesFilterView(GenreYear, ListView):
     """Filtering of movies by year of release and genre ids"""
-    paginate_by = 2
+    paginate_by = 3
 
     def get_queryset(self):
         queryset = (
