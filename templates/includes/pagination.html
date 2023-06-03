@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4"></div>
+
+    <div class="col-md-8">
+
+      <div class="pagination justify-content-center">
+        {% if page_obj.has_other_pages %}
+
+          {% if page_obj.has_previous %}
+
+            <a class="btn btn-outline-warning mb-4 mr-1" href="?page=1">&laquo;</a>
+            <a class="btn btn-outline-warning mb-4 mr-1" href="?{{ q }}{{ genres }}{{ year_of_release }}page={{ page_obj.previous_page_number }}">&#8249;</a>
+          {% endif %}
+
+          {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+              <a class="btn btn-warning mb-4 mr-1" href="?page={{ num }}">{{ num }}</a>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+              <a class="btn btn-outline-warning mb-4 mr-1" href="?{{ q }}{{ genres }}{{ year_of_release }}page={{ num }}">{{ num }}</a>
+            {% endif %}
+          {% endfor %}
+
+          {% if page_obj.has_next %}
+            <a class="btn btn-outline-warning mb-4 mr-1" href="?{{ q }}{{ genres }}{{ year_of_release }}page={{ page_obj.next_page_number }}">&#8250;</a>
+            <a class="btn btn-outline-warning mb-4 mr-1" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+          {% endif %}
+
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</div>

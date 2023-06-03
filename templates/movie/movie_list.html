@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load movie_tag %}
+
+{% block navigation %} bg1 {% endblock %}
+
+{% block content %}
+
+  <div class="col-lg-8">
+
+    <h1>Movies List</h1>
+    <hr>
+    <br>
+
+    <div class="row">
+      {% for movie in movie_list %}
+
+        <div class="col-md-4">
+
+          <div class="card" style="width: 18rem;">
+            {% if movie.poster %}
+              <img src="{{ movie.poster.url }}" class="card-img-top" alt="...">
+            {% else %}
+              <p>No poster available</p>
+            {% endif %}
+            <div class="card-body">
+              <a href="{{ movie.get_absolute_url }}"><h5 class="card-title">{{ movie.title }}</h5></a>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><em>"{{ movie.tagline }}"</em></li>
+
+              {% block rating %}
+                {% include "movie/movie_rating.html" %}
+              {% endblock %}
+
+            </ul>
+          </div>
+          <br>
+
+        </div>
+
+      {% endfor %}
+    </div>
+
+  </div>
+
+{% endblock %}

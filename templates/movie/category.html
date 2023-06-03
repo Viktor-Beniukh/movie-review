@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}{{ category.name }}{% endblock %}
+
+{% block content %}
+
+  <div class="col-lg-8">
+
+    <h1 style="text-align: center">
+      <strong>Category: </strong>&#8195; <em>{{ category.name }}</em>
+    </h1>
+    <br>
+    <hr>
+
+    {% if movies %}
+
+      <div class="row">
+        {% for movie in movies %}
+          <div class="col-md-4">
+
+            <div class="card" style="width: 18rem;">
+              <img src="{{ movie.poster.url }}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <a href="{{ movie.get_absolute_url }}"><h5 class="card-title">{{ movie.title }}</h5></a>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item"><em>"{{ movie.tagline }}"</em></li>
+                <li class="list-group-item">
+                  <span class="fa fa-star" aria-hidden="true" ></span>
+                  <span class="fa fa-star" aria-hidden="true" ></span>
+                  <span class="fa fa-star" aria-hidden="true" ></span>
+                  <span class="fa fa-star" aria-hidden="true" ></span>
+                  <span class="fa fa-star-o" aria-hidden="true" ></span>
+                </li>
+              </ul>
+            </div>
+            <br>
+
+          </div>
+
+          {% endfor %}
+        </div>
+
+      {% else %}
+        <h4 style="text-align: center; color: #902b2b">There are not movies here yet</h4>
+      {% endif %}
+
+      </div>
+
+{% endblock %}

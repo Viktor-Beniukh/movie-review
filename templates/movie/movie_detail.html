@@ -1,0 +1,313 @@
+{% extends "base.html" %}
+
+{% load movie_tag %}
+
+{% block title %}{{ movie.title }}{% endblock %}
+
+
+{% block content %}
+
+  <div class="col-lg-1"></div>
+
+  <div class="left-ads-display col-lg-7">
+    <div class="row">
+      <h3>
+        Title: <em>"{{ movie.title }}"</em>
+      </h3>
+      <hr>
+      <br>
+
+      <div class="desc1-left col-md-5">
+        <img src="{{ movie.poster.url }}" class="img-fluid" alt="" width="800px">
+      </div>
+
+      <div class="desc1-right col-md-6 pl-lg-4">
+
+        <ul>
+          <li style="list-style: none">
+            <span><b>Year:</b> {{ movie.year_of_release }}</span>
+          </li>
+          <li style="list-style: none">
+            <span><b>Country:</b> {{ movie.country }}</span>
+          </li>
+          <li style="list-style: none">
+            <span><b>Tagline:</b> <em>"{{ movie.tagline }}"</em></span>
+          </li>
+          <li style="list-style: none">
+            <span><b>Director:</b>
+              {% for director in movie.directors.all %}
+                <a href="{{ director.get_absolute_url }}">{{ director.name }}</a>
+              {% endfor %}
+            </span>
+          </li>
+          <li style="list-style: none">
+            <span><b>Actors:</b><br>
+              {% for actor in movie.actors.all %}
+                &#8195;<a href="{{ actor.get_absolute_url }}">{{ actor.name }}</a><br>
+              {% endfor %}
+            </span>
+          </li>
+          <li style="list-style: none">
+            <span><b>Genre:</b><br>
+              {% for genre in movie.genres.all %}
+                &#8195;{{ genre.name }}<br>
+              {% endfor %}
+            </span>
+          </li>
+          <li style="list-style: none">
+            <span><b>The premiere in the world:</b> {{ movie.world_premiere }}</span>
+          </li>
+          <li style="list-style: none">
+            <span><b>Budget:</b> ${{ movie.budget }}</span>
+          </li>
+          <li style="list-style: none">
+            <span><b>Fees in the USA:</b> ${{ movie.fees_in_the_usa }}</span>
+          </li>
+          <li style="list-style: none">
+            <span><b>Fees in the World:</b> ${{ movie.fees_in_the_world }}</span>
+          </li>
+        </ul>
+
+        <br>
+
+        <div class="rating">
+          <span>&#8195;&#8195;<b>Rating:</b> </span>
+          <ul class="w3layouts-box-list">
+            {% if not average_rating %}
+              <span class="fa fa-star-o" aria-hidden="true" ></span>
+              <span class="fa fa-star-o" aria-hidden="true" ></span>
+              <span class="fa fa-star-o" aria-hidden="true" ></span>
+              <span class="fa fa-star-o" aria-hidden="true" ></span>
+              <span class="fa fa-star-o" aria-hidden="true" ></span>
+            {% else %}
+              {% if average_rating == 1 %}
+                <span class="fa fa-star" aria-hidden="true" ></span>
+                <span class="fa fa-star-o" aria-hidden="true" ></span>
+                <span class="fa fa-star-o" aria-hidden="true" ></span>
+                <span class="fa fa-star-o" aria-hidden="true" ></span>
+                <span class="fa fa-star-o" aria-hidden="true" ></span>
+              {% endif %}
+
+              {% if average_rating == 2 %}
+                <span class="fa fa-star" aria-hidden="true" ></span>
+                <span class="fa fa-star" aria-hidden="true" ></span>
+                <span class="fa fa-star-o" aria-hidden="true" ></span>
+                <span class="fa fa-star-o" aria-hidden="true" ></span>
+                <span class="fa fa-star-o" aria-hidden="true" ></span>
+              {% endif %}
+
+              {% if average_rating == 3 %}
+                <span class="fa fa-star" aria-hidden="true" ></span>
+                <span class="fa fa-star" aria-hidden="true" ></span>
+                <span class="fa fa-star" aria-hidden="true" ></span>
+                <span class="fa fa-star-o" aria-hidden="true" ></span>
+                <span class="fa fa-star-o" aria-hidden="true" ></span>
+              {% endif %}
+
+              {% if average_rating == 4 %}
+                <span class="fa fa-star" aria-hidden="true" ></span>
+                <span class="fa fa-star" aria-hidden="true" ></span>
+                <span class="fa fa-star" aria-hidden="true" ></span>
+                <span class="fa fa-star" aria-hidden="true" ></span>
+                <span class="fa fa-star-o" aria-hidden="true" ></span>
+              {% endif %}
+
+              {% if average_rating == 5 %}
+                <span class="fa fa-star" aria-hidden="true" ></span>
+                <span class="fa fa-star" aria-hidden="true" ></span>
+                <span class="fa fa-star" aria-hidden="true" ></span>
+                <span class="fa fa-star" aria-hidden="true" ></span>
+                <span class="fa fa-star" aria-hidden="true" ></span>
+              {% endif %}
+            {% endif %}
+            <span class="editContent" > &#8194;<small>{{ average_rating }}.0</small></span>
+
+          </ul>
+        </div>
+
+        <br>
+
+        <div class="share-desc">
+          <div class="share">
+            <h4 class="editContent" style="outline: none; cursor: inherit;"> &#8195;&#8195;<strong>Share:</strong></h4>
+            <ul class="w3layouts_social_list list-unstyled">&#8195;
+              <li>
+                <a href="#" class="w3pvt_facebook editContent" style="outline: none; cursor: inherit;">
+                  <span class="fa fa-facebook-f" style="outline: none; cursor: inherit;"></span>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="w3pvt_twitter editContent" style="outline: none; cursor: inherit;">
+                  <span class="fa fa-twitter" style="outline: none; cursor: inherit;"></span>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="w3pvt_google editContent" style="outline: none; cursor: inherit;">
+                  <span class="fa fa-instagram" style="outline: none; cursor: inherit;"></span>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="w3pvt_twitter editContent" style="outline: none; cursor: inherit;">
+                  <span class="fa fa-telegram" style="outline: none; cursor: inherit;"></span>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="w3pvt_dribble editContent" style="outline: none; cursor: inherit;">
+                  <span class="fa fa-dribbble" style="outline: none; cursor: inherit;"></span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row sub-para-w3layouts mt-5">
+
+      <h3 class="shop-sing editContent" style="outline: none; cursor: inherit;">
+        About the movie <em>"{{ movie.title }}"</em>
+      </h3>&#8195;&#8195;&#8195;&#8195;&#8195;&#8195;
+      <p>
+        {% for image in movie.film_frames.all %}
+          <img src="{{ image.image.url }}" class="img-fluid" alt="{{ image.description }}" width="120">
+        {% endfor %}
+      </p><br>
+      <p class="editContent" style="outline: none; cursor: inherit;">
+        {{ movie.description|safe }}
+      </p>
+
+    </div>
+
+    <hr>
+
+    {% if user.is_authenticated %}
+    <div class="row">
+      <div class="single-form-left">
+        <!-- contact form grid -->
+        <div class="contact-single">
+          <h2 class="editContent" style="outline: none; cursor: inherit;">
+            <span class="sub-tittle editContent" style="outline: none; cursor: inherit;">
+              <small>{{ movie.film_review.count }}</small>
+            </span>
+            Leave a review
+          </h2>
+
+          <form action="{% url 'movie:review-create' movie.id %}" method="post" class="mt-4" id="formReview">
+            {% csrf_token %}
+            <input type="hidden" name="parent" id="contactparent" value="">
+            <div class="form-group editContent">
+
+              <label for="contactcomment" class="editContent">
+                Your comment*
+              </label>
+              <textarea class="form-control border" rows="5"
+                        id="contactcomment" required="" name="text">
+              </textarea>
+            </div>
+            <div class="d-sm-flex">
+              <div class="col-sm-6 form-group p-0 editContent" style="outline: none; cursor: inherit;">
+                <label for="contactusername" class="editContent">
+                  Name*
+                </label>
+                <input type="text" class="form-control border"
+                       id="contactusername" required=""
+                       name="first_name" value="{{ request.user.first_name }}"
+                       readonly
+                >
+              </div>&#8194;
+              <div class="col-sm-6 form-group ml-sm-3 editContent" style="outline: none; cursor: inherit;">
+                <label for="contactemail" class="editContent">
+                  Email*
+                </label>
+                <input type="email" class="form-control border"
+                       id="contactemail" required=""
+                       name="email" value="{{ request.user.email }}"
+                       readonly
+                >
+              </div>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-warning" style="outline: none; cursor: inherit; font-size: 20px">Submit</button>
+          </form>
+
+        </div>
+        <!--  //contact form grid ends here -->
+      </div>
+    </div>
+
+
+    <br>
+    <hr>
+    <div class="rating">
+      <form method="post" action="{% url 'movie:add-rating' movie.slug %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-warning">Submit Rating</button>
+      </form>
+    </div>
+  {% endif %}
+
+    <br><br>
+    <hr>
+    <div>
+
+      <h3 class="editContent" style="outline: none; cursor: inherit;">
+        <span class="sub-tittle editContent" style="outline: none; cursor: inherit;"></span>
+        Comments
+      </h3>
+      <hr>
+      {% for review in movie.get_review %}
+        <div class="media py-5">
+
+          <img src="{{ review.user.profile.image.url }}" class="mr-3 img-fluid" alt="image" width="80">&#8195;&#8195;&#8195;
+          <div class="media-body mt-4">
+            <h5 class="mt-0 editContent">{{ review.user.first_name }}</h5>
+            <p class="mt-2 editContent" style="outline: none; cursor: inherit;">{{ review.text }}</p>
+
+            {% if user.is_authenticated %}
+              {% if review.user != request.user %}
+              <a href="#formReview"
+                 onclick="addReview('{{ review.user.first_name }}','{{ review.id }}')">
+                Answer
+              </a>
+              {% endif %}
+            {% endif %}
+
+            {% for rew in review.review_set.all %}
+              <div class="media mt-5 editContent">
+                <div class="row">
+                  <div class="col-md-2"></div>
+                  <div class="col-md-10">
+                    <a class="pr-3" href="#">
+                      <img src="{{ rew.user.profile.image.url }}" class="img-fluid" alt="image" width="80">
+                    </a>
+                    <div class="media-body">
+                      <h5 class="mt-0 editContent">{{ rew.user.first_name }}</h5>
+                      <p class="mt-2 editContent">{{ rew.text }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            {% endfor %}
+
+          </div>
+
+        </div><hr>
+      {% endfor %}
+    </div>
+
+  </div>
+
+  <script>
+    function addReview(first_name, id) {
+      document.getElementById("contactparent").value = id;
+      document.getElementById("contactcomment").innerText = `${first_name}, `
+    }
+  </script>
+
+  <br><br>
+
+{% endblock %}

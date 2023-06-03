@@ -1,0 +1,13 @@
+{% load crispy_forms_filters %}
+<h3 class="footer-title text-uppercase editContent mb-lg-4 mb-3">
+    Newsletter</h3>
+
+<p class="editContent">By subscribing to our mailing list you will always
+    get latest news and updates from us.</p>
+<form action="{% url 'subscribe:contact' %}" method="POST" >
+    {% csrf_token %}
+    {{ subscribe_form|crispy }}
+    <button class="btn btn-outline-warning">Subscribe</button>
+</form>
+<br>
+<p class="editContent">To unsubscribe, <a href="{% url 'subscribe:unsubscribe' %}">click here</a>.</p>
